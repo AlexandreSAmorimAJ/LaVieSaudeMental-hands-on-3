@@ -14,10 +14,19 @@ const psicologos = db.define(
         },
         email: {
             type: sequelize.DataTypes.STRING,  //VARCHAR = STRING
-        },        
+        }, 
+        senha: {
+            type:sequelize.DataTypes.STRING,
+        },       
         apresentacao: {
             type: sequelize.DataTypes.STRING,
-        }
+        },
+        createdAt: {
+            type: sequelize.DataTypes.DATE,
+        },
+        updatedAt: {
+            type: sequelize.DataTypes.DATE,
+        },
     }, 
     {
         tableName: "psicologos",
@@ -26,6 +35,5 @@ const psicologos = db.define(
 );
 
 module.exports = psicologos;
-
 
 
