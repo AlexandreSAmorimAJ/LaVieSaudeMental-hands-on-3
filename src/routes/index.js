@@ -4,6 +4,8 @@ const PacientesController = require("../controller/pacientes.controller");
 const atendimentosController = require("../controller/atendimentos.controller");
 const routes = express.Router();
 
+// Rotas dos psicólogos
+
 routes.get('/psicologos', psicologosController.listAll);
 routes.get('/psicologos/:id_psicologo', psicologosController.listOne );
 routes.post('/psicologos', psicologosController.createPsicologo);
