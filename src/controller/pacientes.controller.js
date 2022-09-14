@@ -66,7 +66,7 @@ const PacientesController  = {
     
             return res.status(204);
         }catch{
-            return res.status();
+            return res.status(404).json("Id não encontrado");
         }
     },
 }
