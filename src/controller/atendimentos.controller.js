@@ -29,13 +29,13 @@ const atendimentosController = {
     const bytes = base64.decode(token[1]);
     const text = utf8.decode(bytes);
     const tokenInfo = JSON.parse(text);
-    const psicologos_id = tokenInfo.id
+    const psicologos_id = tokenInfo.id;
     const { data, observacao, pacientes_id } = req.body;
     const novoAtendimento = await Atendimentos.create({
       data,
       observacao,
       pacientes_id,
-      psicologos_id,
+      psicologos_id
     });
     res.status(201).json(novoAtendimento);
   },

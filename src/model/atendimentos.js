@@ -8,22 +8,22 @@ const Atendimentos = db.define(
     id: {
       type: sequelize.INTEGER,
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true
     },
     data: {
       type: sequelize.DATE,
-      allowNull: false,
+      allowNull: false
     },
     observacao: {
       type: sequelize.STRING,
-      allowNull: false,
+      allowNull: false
     },
     pacientes_id: {
       type: sequelize.INTEGER,
       allowNull: false,
       Reference: {
         model: Pacientes,
-        key: "id",
+        key: "id"
       },
     },
     psicologos_id: {
@@ -31,14 +31,14 @@ const Atendimentos = db.define(
       allowNull: false,
       Reference: {
         model: Psicologos,
-        key: "id",
+        key: "id"
       },
     },
   },
   {
     tableName: "atendimentos",
     underscored: true,
-    timestamps: false,
+    timestamps: false
   }
 );
 module.exports = Atendimentos;
