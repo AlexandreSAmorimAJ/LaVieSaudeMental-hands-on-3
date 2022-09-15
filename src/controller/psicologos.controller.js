@@ -1,5 +1,6 @@
 const { response } = require("express");
 const psicologosModel = require("../model/psicologos");
+const bcrypt = require("bcryptjs");
 
 
 
@@ -33,23 +34,55 @@ const psicologosController = {
     },
 
     createPsicologo: async (req, res) => {
-        try {
+            
             const { nome, email,senha, apresentacao } = req.body;
 
-            const newPsicologo = await psicologosModel.create({
-                nome, 
-                email, 
-                senha,
-                apresentacao,
-            });
+            try {
+                const senhaHash = bcrypt.hashSync(senha, 10);
 
-             res.status(201).json(newPsicologo);
-            
-        } catch (error) {
-            console.error(error);
-            
+                const userSaved = await psicologosModel.count({
+                    where: {
+                        email,
+                    },
+                });
+
+                if(userSaved) {
+                    return res.status(400).json("Email já cadastrado!");
+                }
+
+                const newPsicologo = await psicologosModel.create({
+                    nome, 
+                    email, 
+                    senha: senhaHash,
+                    apresentacao,
+                });
+                return res.status(201).json(newPsicologo);
+                
+            } catch (error) {
+                console.log(error);
+                
+            }      
+    },
+
+    login: async ( req, res) => {
+        const { email, senha } = req.body;
+
+        const userSaved = await psicologosModel.findOne({
+            where: {
+                email,
+            },
+        });
+
+        if(!userSaved) {
+            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente");
         }
-        
+
+        if(!bcrypt.compareSync(senha, userSaved.senha)){
+            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente");
+        }
+
+        return res.status(200).json("Login Efetuado");
+
     },
 
     deleteOne: async (req, res) => {
