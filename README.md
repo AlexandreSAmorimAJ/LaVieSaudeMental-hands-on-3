@@ -1,6 +1,6 @@
-# LaVie Saude Mental (API)
+# LaVie Saúde Mental (API)
 
-Nesse projeto, desenvolvemos uma API que realiza a criação de registros de psicólogos, pacientes e atendimentos. Criamos também o DER e o script SQL para gerar o banco de dados.
+Neste projeto, desenvolvemos uma API que realiza a criação de registros de psicólogos, pacientes e atendimentos. Criamos também o DER e o script SQL para gerar o banco de dados.
 
 ## Funcionalidades
 
