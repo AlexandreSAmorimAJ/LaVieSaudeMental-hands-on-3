@@ -3,9 +3,11 @@ const psicologosController = require("../controller/psicologos.controller");
 const PacientesController = require("../controller/pacientes.controller");
 const atendimentosController = require("../controller/atendimentos.controller");
 const routes = express.Router();
+const usuarioCreateValidation = require("../validations/usuarios/create"); 
 
 // Rotas dos psicólogos
 
+routes.post('/login', usuarioCreateValidation, psicologosController.createPsicologo);
 routes.get('/psicologos', psicologosController.listAll);
 routes.get('/psicologos/:id_psicologo', psicologosController.listOne );
 routes.post('/psicologos', psicologosController.createPsicologo);
