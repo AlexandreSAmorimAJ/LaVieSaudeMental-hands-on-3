@@ -25,7 +25,7 @@ Neste projeto, desenvolvemos uma API que realiza a criação de registros de psi
 - [@keuwey](https://github.com/keuwey)
 
 
-## Exemplo de login com senha criptografada
+## Exemplo de post com senha criptografada
 
 ![image](https://user-images.githubusercontent.com/75628342/190638670-13a3bd72-c921-475d-a343-c504be21375d.png)
 
