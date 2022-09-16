@@ -34,57 +34,17 @@ const psicologosController = {
     },
 
     createPsicologo: async (req, res) => {
+        const { nome, email, senha, apresentacao } = req.body;
+
+        const newSenha = bcrypt.hashSync(senha, 10);
+
+        const newUsuario = await psicologosModel.create({ nome, email, senha: newSenha, apresentacao });
+
+        return res.status(201).json(newUsuario);
             
-            const { nome, email,senha, apresentacao } = req.body;
-
-            try {
-                const senhaHash = bcrypt.hashSync(senha, 10);
-
-                const userSaved = await psicologosModel.count({
-                    where: {
-                        email,
-                    },
-                });
-
-                if(userSaved) {
-                    return res.status(400).json("Email já cadastrado!");
-                }
-
-                const newPsicologo = await psicologosModel.create({
-                    nome, 
-                    email, 
-                    senha: senhaHash,
-                    apresentacao,
-                });
-                return res.status(201).json(newPsicologo);
-                
-            } catch (error) {
-                console.log(error);
-                
-            }      
     },
 
-    login: async ( req, res) => {
-        const { email, senha } = req.body;
-
-        const userSaved = await psicologosModel.findOne({
-            where: {
-                email,
-            },
-        });
-
-        if(!userSaved) {
-            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente");
-        }
-
-        if(!bcrypt.compareSync(senha, userSaved.senha)){
-            return res.status(401).json("E-mail ou senha inválido, verifique e tente novamente");
-        }
-
-        return res.status(200).json("Login Efetuado");
-
-    },
-
+    
     deleteOne: async (req, res) => {
         try {
             const { id_psicologo } = req.params;
@@ -99,7 +59,6 @@ const psicologosController = {
             if (!psicologoID) {
                 return res.status(404).json("Id não encontrado");} 
     
-                res.status(204).json("ID deletado com sucesso");
             
         } catch (error){
             console.error(error);
@@ -124,8 +83,12 @@ const psicologosController = {
                     },
                 }
             );
-    
-            res.status(200).json("Atualizado");
+
+            const psicologoAtualizado = await psicologosModel.findByPk(id_psicologo, {
+                attributes: { exclude: ["senha"] },
+              });
+              res.status(200).json(psicologoAtualizado);
+
             
         } catch {
             res.status(400);
