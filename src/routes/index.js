@@ -2,6 +2,7 @@ const express = require("express");
 const psicologosController = require("../controller/psicologos.controller");
 const PacientesController = require("../controller/pacientes.controller");
 const atendimentosController = require("../controller/atendimentos.controller");
+const atendimentosValidators = require("../validations/atendimentos");
 const routes = express.Router();
 const usuarioCreateValidation = require("../validations/usuarios/create"); 
 const authLoginValidation = require("../validations/usuarios/auth/login");
@@ -31,5 +32,6 @@ routes.delete("/pacientes/:id", PacientesController.deletePaciente);
 routes.get("/atendimentos", atendimentosController.listar);
 routes.get("/atendimentos/:id", atendimentosValidators.listarID, atendimentosController.listarID);
 routes.post("/atendimentos",atendimentosValidators.cadastrar,  atendimentosController.cadastrar);
+
 
 module.exports = routes;
