@@ -17,10 +17,10 @@
     "express-validation": "^4.1.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.3.3",
-    "sequelize": "^6.21.6",
+    "sequelize": "^6.23.0",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.20"
   }
 }
