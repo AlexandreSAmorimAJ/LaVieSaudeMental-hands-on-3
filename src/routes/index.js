@@ -30,7 +30,7 @@ routes.delete("/pacientes/:id", PacientesController.deletePaciente);
 
 routes.get('/atendimentos', atendimentosController.listAtendimento);
 routes.get('/atendimentos/:id', atendimentosController.listOne);
-routes.post('/atendimentos', atendimentosController.createAtendimento);
+routes.post('/atendimentos', atendimentosController.createAtendimento);  
 
 
 
