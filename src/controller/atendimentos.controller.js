@@ -1,43 +1,65 @@
 const Atendimentos = require("../model/atendimentos.js");
 const Pacientes = require("../model/pacientes.js");
 const Psicologos = require("../model/psicologos.js");
-const base64 = require('base-64');
-const utf8 = require('utf8');
+
+
 const atendimentosController = {
-  listar: async (req, res) => {
-    const listaDeAtendimentos = await Atendimentos.findAll({
-      include: [{ model: Pacientes, attributes: ["nome"] },{ model: Psicologos, attributes: ["nome"] }]
-    });
-    return res.status(200).json(listaDeAtendimentos);
-  },
-  listarID: async (req, res) => {
-    const { id } = req.params;
-    const atendimento = await Atendimentos.findByPk(id, {
-      include: [Pacientes, { model: Psicologos, attributes: { exclude: ["senha"]}}]
-    });
-    if (!atendimento) {
-      return res
-        .status(404)
-        .json(
-          `O atendimento de id ${id} não foi encontrado em nossos registros. Confira o ID e tente novamente`
-        );
+  listAtendimento: async (req, res) => {
+    try {
+      const atendimentos = await Atendimentos.findAll({
+        include: [
+          {
+            model: Pacientes,
+          },
+          {
+            model: Psicologos,
+          },
+        ],
+      });
+      return res.json(atendimentos);
+    } catch (error) {
+      console.error(error);
     }
-    return res.status(200).json(atendimento);
   },
-  cadastrar: async (req, res) => {
-    const token = req.headers.authorization.slice(7).split(".");
-    const bytes = base64.decode(token[1]);
-    const text = utf8.decode(bytes);
-    const tokenInfo = JSON.parse(text);
-    const psicologos_id = tokenInfo.id;
-    const {data, observacao, pacientes_id} = req.body;
-    const novoAtendimento = await Atendimentos.create({
-      data,
-      observacao,
-      pacientes_id,
-      psicologos_id
-    });
-    res.status(201).json(novoAtendimento);
+  listOne: async (req, res) => {
+    const { id } = req.params;
+    try {
+      const atendimento = await Atendimentos.findByPk(id, {
+        include: [
+          {
+            model: Pacientes,
+          },
+          {
+            model: Psicologos,
+          },
+        ],
+      });
+      if (!atendimento) {
+        return res.status(404).json('Id não encontrado');
+      } else {
+        return res.json(atendimento);
+      }
+    } catch (error) {
+      console.error(error);
+    }
   },
-}
+  createAtendimento: async (req, res) => {
+    console.log(req.auth);
+
+    const { data_atendimento, observacao, id_psicologo, id_paciente } =
+      req.body; 
+    try {
+      const newAtendimento = await Atendimentos.create({
+        data_atendimento,
+        observacao,
+        id_psicologo,
+        id_paciente
+      });
+      res.status(201).json(newAtendimento);
+    } catch (error) {
+      console.error(error);
+    }
+  },
+};
+
 module.exports = atendimentosController;
