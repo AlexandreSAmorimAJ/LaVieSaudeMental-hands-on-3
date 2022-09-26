@@ -10,7 +10,7 @@ const Atendimentos = db.define(
       primaryKey: true,
       autoIncrement: true
     },
-    data: {
+    data_atendimento: {
       type: sequelize.DATE,
       allowNull: false
     },
@@ -18,20 +18,20 @@ const Atendimentos = db.define(
       type: sequelize.STRING,
       allowNull: false
     },
-    pacientes_id: {
+    id_paciente: {
       type: sequelize.INTEGER,
       allowNull: false,
       Reference: {
         model: Pacientes,
-        key: "id"
+        key: "id_paciente"
       },
     },
-    psicologos_id: {
+    id_psicologo: {
       type: sequelize.INTEGER,
       allowNull: false,
       Reference: {
         model: Psicologos,
-        key: "id"
+        key: "id_psicologo"
       },
     },
   },
