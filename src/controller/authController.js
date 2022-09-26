@@ -30,7 +30,7 @@ const AuthController =  {
             secret.key
             );
 
-        return res.json(token);
+        return res.status(200).json(token); // Caso as informações estejam corretas, deve ser gerado um token JWT que contenha o id, email e nome do psicólogo que fez o login dentro do seu conteúdo. Esse token deve ser enviado como resposta com o status 200.
         
     },
 };
