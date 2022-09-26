@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `atendimentos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `atendimentos` (
+
+  `id` int NOT NULL AUTO_INCREMENT,
   `id_psicologo` int NOT NULL,
   `data_atendimento` datetime DEFAULT NULL,
   `observacao` varchar(2500) DEFAULT NULL,
   `id_paciente` int NOT NULL,
-  `createdAt` date DEFAULT NULL,
-  `updatedAt` date DEFAULT NULL,
   KEY `id_psicologo` (`id_psicologo`),
   KEY `id_paciente` (`id_paciente`),
   CONSTRAINT `id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`),
